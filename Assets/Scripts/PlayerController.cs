@@ -366,6 +366,7 @@ public class PlayerController : MonoBehaviour
     public float moveStep = 1.2f;
     public float moveSpeed = 6f;
     public bool canMove = true;
+    public bool freezeMode = false;
 
     [Header("UI References")]
     public GameObject mobileControls;
@@ -428,11 +429,11 @@ public class PlayerController : MonoBehaviour
     void HandleSmoothMovement()
     {
         if (!isMoving) return;
-
+        float dt = freezeMode ? Time.unscaledDeltaTime : Time.deltaTime;
         transform.position = Vector3.MoveTowards(
             transform.position,
             targetPos,
-            moveSpeed * Time.deltaTime
+            moveSpeed * dt
         );
 
         if (Vector3.Distance(transform.position, targetPos) < 0.01f)
@@ -479,6 +480,13 @@ public class PlayerController : MonoBehaviour
         transform.forward = dir;
     }
 
+    public void EnableUnscaledAnimation(bool enable)
+    {
+        anim.updateMode = enable
+            ? AnimatorUpdateMode.UnscaledTime
+            : AnimatorUpdateMode.Normal;
+    }
+ 
     public void HoldUpStart() { holdUp = true; holdTimer = 0f; }
     public void HoldDownStart() { holdDown = true; holdTimer = 0f; }
     public void HoldLeftStart() { holdLeft = true; holdTimer = 0f; }

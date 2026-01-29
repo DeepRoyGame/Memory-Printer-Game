@@ -791,8 +791,12 @@ public class GameManagerCycle : MonoBehaviour
     //[Header("Levels (ScriptableObjects)")]
     ////public List<LevelData> levels;
     [Header("Power Up")]
-    public float powerUpDuration = 5f;
+    private float freezeTimer;
+    private float powerUpTimer;
+    public float powerUpDuration = 2f;
+    public float freezeTimeDuration = 2f;
     private bool powerUpActive = false;
+    private bool freezeTimeActive = false;
 
     private int levelIndex = 0;
     private int layoutIndex = 0;
@@ -824,7 +828,8 @@ public class GameManagerCycle : MonoBehaviour
 
         if (powerUpActive)
             UpdatePowerUpTimer();
-
+        if (freezeTimeActive)
+            UpdateFreezeTimer();
         if (snapshotActive)
             UpdateSnapshotTimer();
 
@@ -965,11 +970,13 @@ public class GameManagerCycle : MonoBehaviour
         if (powerUpActive) return;
 
         powerUpActive = true;
-        snapshotActive = true;
-        snapshotTimer = powerUpDuration;
+        //snapshotActive = true;
+        powerUpTimer = powerUpDuration;
 
         snapshot.TakeSnapshot();
         //player.canMove = false;
+        Time.timeScale = 0f;
+        DisableAllPanels();
 
         CameraManager.Instance.EnableTopCamera();
         generator.EnableDragMode(true); // allow dragging
@@ -981,11 +988,12 @@ public class GameManagerCycle : MonoBehaviour
     void EndPowerUp()
     {
         powerUpActive = false;
-        snapshotActive = false;
+        //snapshotActive = false;
 
         snapshot.ClearSnapshot();
         //player.canMove = true;
-
+        Time.timeScale = 1f;
+        gameplayPanel.SetActive(true);
         CameraManager.Instance.EnableMainCamera();
         generator.EnableDragMode(false);
 
@@ -997,14 +1005,56 @@ public class GameManagerCycle : MonoBehaviour
     {
         if (!powerUpActive) return;
 
-        snapshotTimer -= Time.deltaTime;
+        powerUpTimer -= Time.unscaledDeltaTime;
 
-        if (snapshotTimer <= 0f)
+        if (powerUpTimer <= 0f)
         {
             EndPowerUp();
         }
     }
 
+    public void ActivateFreezeTime()
+    {
+        Debug.Log("Freeze Time Mode On");
+
+        if (freezeTimeActive) return;
+
+        freezeTimeActive = true;
+        freezeTimer = freezeTimeDuration;
+
+        snapshot.TakeSnapshot();
+
+        Time.timeScale = 0f;
+        player.canMove = true;
+        player.freezeMode = true;
+        player.EnableUnscaledAnimation(true);
+
+        SetObstacleMovement(false);
+    }
+
+    void EndFreezeTime()
+    {
+        freezeTimeActive = false;
+        snapshot.ClearSnapshot();
+        //player.canMove = true;
+        Time.timeScale = 1f;
+        player.freezeMode = false;
+        player.EnableUnscaledAnimation(false);
+
+        ApplyMovementRules();
+    }
+
+    void UpdateFreezeTimer()
+    {
+        if (!freezeTimeActive) return;
+
+        freezeTimer -= Time.unscaledDeltaTime;
+
+        if (freezeTimer <= 0f)
+        {
+            EndFreezeTime();
+        }
+    }
 
     public void PlayerReachedDoor()
     {
