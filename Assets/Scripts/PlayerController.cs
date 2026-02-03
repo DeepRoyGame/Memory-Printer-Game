@@ -358,6 +358,7 @@
 //        else if (other.CompareTag("Door")) gm.PlayerReachedDoor();
 //    }
 //}
+
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour

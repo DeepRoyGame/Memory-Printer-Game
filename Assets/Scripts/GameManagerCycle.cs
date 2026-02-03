@@ -809,6 +809,8 @@ public class GameManagerCycle : MonoBehaviour
     private bool snapshotActive;
     private bool isGameRunning;
 
+    private HashSet<MovingObstacle> movingObstaclesForLayout = new HashSet<MovingObstacle>();
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -897,16 +899,15 @@ public class GameManagerCycle : MonoBehaviour
         //mapTimer = level.mapChangeTime;
 
         levelText.text = "LEVEL " + (levelIndex + 1);
-        //timerText.text = "TIMER : 60" ;
-        //mapTimerText.text = "MAP TIMER : 20" ;
 
         timerText.text = "TIMER : " + levelTimer.ToString("0");
         mapTimerText.text = "MAP TIMER : " + mapTimer.ToString("0");
 
         generator.GenerateFromJson(levelIndex + 1, layoutIndex);
 
-        SetObstacleMovement(false); 
-        ApplyMovementRules();       
+        //SetObstacleMovement(false); 
+        DecideMovementForCurrentLayout();      
+        ApplyStoredMovementRules();
 
         snapshot.ClearSnapshot();
         player.ResetPosition();
@@ -916,8 +917,10 @@ public class GameManagerCycle : MonoBehaviour
         UpdatePlayerMovement();
     }
 
-    void ApplyMovementRules()
+    void DecideMovementForCurrentLayout()
     {
+        movingObstaclesForLayout.Clear();
+
         bool allowMovement = (levelIndex + 1) >= 4;
 
         List<MovingObstacle> obstacles = new List<MovingObstacle>();
@@ -944,6 +947,9 @@ public class GameManagerCycle : MonoBehaviour
 
         int moveCount = Mathf.Max(1, obstacles.Count / 2);
 
+        for (int i = 0; i < moveCount; i++)
+            movingObstaclesForLayout.Add(obstacles[i]);
+
         for (int i = 0; i < obstacles.Count; i++)
         {
             if (i < moveCount)
@@ -953,13 +959,37 @@ public class GameManagerCycle : MonoBehaviour
         }
     }
 
-    void SetObstacleMovement(bool active)
+    //void SetObstacleMovement(bool active)
+    //{
+    //    foreach (Transform ob in generator.obstaclesParent)
+    //    {
+    //        MovingObstacle mo = ob.GetComponent<MovingObstacle>();
+    //        if (mo != null)
+    //            mo.canMove = active;
+    //    }
+    //}
+
+    void ApplyStoredMovementRules()
+    {
+        foreach (Transform ob in generator.obstaclesParent)
+        {
+            MovingObstacle mo = ob.GetComponent<MovingObstacle>();
+            if (mo == null) continue;
+
+            mo.ForceStopMovement();
+
+            if (movingObstaclesForLayout.Contains(mo))
+                mo.StartWarningGlow();
+        }
+    }
+
+    void StopAllObstacleMovement()
     {
         foreach (Transform ob in generator.obstaclesParent)
         {
             MovingObstacle mo = ob.GetComponent<MovingObstacle>();
             if (mo != null)
-                mo.canMove = active;
+                mo.ForceStopMovement();
         }
     }
 
@@ -981,7 +1011,8 @@ public class GameManagerCycle : MonoBehaviour
         CameraManager.Instance.EnableTopCamera();
         generator.EnableDragMode(true); // allow dragging
 
-        SetObstacleMovement(false);
+        //SetObstacleMovement(false);
+        StopAllObstacleMovement();
         UpdatePlayerMovement();
     }
 
@@ -997,7 +1028,8 @@ public class GameManagerCycle : MonoBehaviour
         CameraManager.Instance.EnableMainCamera();
         generator.EnableDragMode(false);
 
-        ApplyMovementRules();
+        //DecideMovementForCurrentLayout();
+        ApplyStoredMovementRules();
         UpdatePlayerMovement();
     }
 
@@ -1029,7 +1061,8 @@ public class GameManagerCycle : MonoBehaviour
         player.freezeMode = true;
         player.EnableUnscaledAnimation(true);
 
-        SetObstacleMovement(false);
+        //SetObstacleMovement(false);
+        StopAllObstacleMovement();
     }
 
     void EndFreezeTime()
@@ -1041,7 +1074,8 @@ public class GameManagerCycle : MonoBehaviour
         player.freezeMode = false;
         player.EnableUnscaledAnimation(false);
 
-        ApplyMovementRules();
+        //DecideMovementForCurrentLayout();
+        ApplyStoredMovementRules();
     }
 
     void UpdateFreezeTimer()
@@ -1099,7 +1133,8 @@ public class GameManagerCycle : MonoBehaviour
         DisableAllPanels();
         gameOverPanel.SetActive(true);
 
-        SetObstacleMovement(false);
+        //SetObstacleMovement(false);
+        StopAllObstacleMovement();
 
         PlayerPrefs.SetInt("LastReachedLevel", levelIndex + 1);
         UpdateHighestLevel();
@@ -1121,7 +1156,8 @@ public class GameManagerCycle : MonoBehaviour
         layoutIndex = 0;
 
         snapshot.ClearSnapshot();
-        SetObstacleMovement(false);
+        //SetObstacleMovement(false);
+        StopAllObstacleMovement();
 
         player.ResetPosition();
 
@@ -1148,8 +1184,9 @@ public class GameManagerCycle : MonoBehaviour
 
         LoadLevel(); 
 
-        SetObstacleMovement(false);
-        ApplyMovementRules();
+        //SetObstacleMovement(false);
+        StopAllObstacleMovement() ; 
+        DecideMovementForCurrentLayout();
 
     }
 
@@ -1157,7 +1194,8 @@ public class GameManagerCycle : MonoBehaviour
     {
         DisableAllPanels();
         pausePanel.SetActive(true);
-        SetObstacleMovement(false);
+        //SetObstacleMovement(false);
+        StopAllObstacleMovement();
 
         Time.timeScale = 0f;
         isGameRunning = false;
@@ -1170,6 +1208,7 @@ public class GameManagerCycle : MonoBehaviour
         gameplayPanel.SetActive(true);
         Time.timeScale = 1f;
         isGameRunning = true;
+        ApplyStoredMovementRules();
         UpdatePlayerMovement();
     }
 
@@ -1194,7 +1233,8 @@ public class GameManagerCycle : MonoBehaviour
             snapshotActive = false;
             //player.canMove = true;
             UpdatePlayerMovement();
-            ApplyMovementRules();
+            //DecideMovementForCurrentLayout();
+            ApplyStoredMovementRules();
         }
     }
 
@@ -1214,8 +1254,9 @@ public class GameManagerCycle : MonoBehaviour
 
             generator.GenerateFromJson(levelIndex + 1, layoutIndex);
 
-            ApplyMovementRules();
-            SetObstacleMovement(false);
+            DecideMovementForCurrentLayout();
+            //SetObstacleMovement(false);
+            StopAllObstacleMovement();
 
             mapTimer = 20f;
         }
