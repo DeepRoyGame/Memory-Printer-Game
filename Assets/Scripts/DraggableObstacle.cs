@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class DraggableObstacle : MonoBehaviour
 {
     private bool canDrag;
@@ -81,7 +80,7 @@ public class DraggableObstacle : MonoBehaviour
             }
         }
 
-        //  VALID DROP
+        //  valid drop
         transform.position = new Vector3(
             snappedPos.x,
             yOffset,
