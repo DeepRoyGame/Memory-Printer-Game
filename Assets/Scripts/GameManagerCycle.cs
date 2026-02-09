@@ -32,13 +32,29 @@ public class GameManagerCycle : MonoBehaviour
     public TextMeshProUGUI lastLevelText;
     public TextMeshProUGUI bestLevelGameOverText;
 
+    [Header("Star System")]
+    [Header("Star UI")]
+    public UnityEngine.UI.Image star1;
+    public UnityEngine.UI.Image star2;
+    public UnityEngine.UI.Image star3;
+
+    public Sprite filledStar;
+    public Sprite emptyStar;
+
+    public TextMeshProUGUI totalStarsText;
+
+    private int earnedStars;
+    private int totalStars;
+
+
     //[Header("Levels (ScriptableObjects)")]
     ////public List<LevelData> levels;
-    [Header("Power Up")]
-    private float freezeTimer;
-    private float powerUpTimer;
+   
+    [Header("Power Ups")]
     public float powerUpDuration = 2f;
     public float freezeTimeDuration = 2f;
+    private float freezeTimer;
+    private float powerUpTimer;
     private bool powerUpActive = false;
     private bool freezeTimeActive = false;
 
@@ -66,6 +82,8 @@ public class GameManagerCycle : MonoBehaviour
         Time.timeScale = 1f;
         LoadHighestLevel();
         ShowMenu();
+        totalStars = PlayerPrefs.GetInt("TotalStars", 0);
+        UpdateTotalStarsUI();
     }
 
     void Update()
@@ -318,7 +336,6 @@ public class GameManagerCycle : MonoBehaviour
         player.freezeMode = false;
         player.EnableUnscaledAnimation(false);
 
-
         //DecideMovementForCurrentLayout();
         ApplyStoredMovementRules();
     }
@@ -334,6 +351,55 @@ public class GameManagerCycle : MonoBehaviour
             EndFreezeTime();
         }
     }
+    void CalculateStars()
+    {
+        float timeTaken = 60f - levelTimer;
+
+        if (timeTaken <= 20f)
+            earnedStars = 3;
+        else if (timeTaken <= 40f)
+            earnedStars = 2;
+        else
+            earnedStars = 1;
+
+        SaveLevelStars();
+        ShowStars(earnedStars);
+    }
+
+    void SaveLevelStars()
+    {
+        int currentLevelNumber = levelIndex + 1;
+
+        string levelKey = "LevelStars_" + currentLevelNumber;
+        int previousBestStars = PlayerPrefs.GetInt(levelKey, 0);
+
+        if (earnedStars > previousBestStars)
+        {
+            int difference = earnedStars - previousBestStars;
+
+            totalStars += difference;
+
+            PlayerPrefs.SetInt(levelKey, earnedStars);
+            PlayerPrefs.SetInt("TotalStars", totalStars);
+            PlayerPrefs.Save();
+
+            UpdateTotalStarsUI();
+        }
+    }
+
+    void ShowStars(int starCount)
+    {
+        star1.sprite = (starCount >= 1) ? filledStar : emptyStar;
+        star2.sprite = (starCount >= 2) ? filledStar : emptyStar;
+        star3.sprite = (starCount >= 3) ? filledStar : emptyStar;
+    }
+
+
+    void UpdateTotalStarsUI()
+    {
+        if (totalStarsText != null)
+            totalStarsText.text = "TOTAL STARS : " + totalStars;
+    }
 
     public void PlayerReachedDoor()
     {
@@ -345,10 +411,12 @@ public class GameManagerCycle : MonoBehaviour
         isGameRunning = false;
         player.canMove = false;
 
+        CalculateStars();
+
         DisableAllPanels();
         levelCompletePanel.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
 
         levelIndex++;
         layoutIndex = 0;
