@@ -11,6 +11,15 @@ public class WorldScrollController : MonoBehaviour
     private int currentPage = 0;
     private bool isScrolling = false;
 
+    IEnumerator Start()
+    {
+        // Wait one frame so layout calculates properly
+        yield return null;
+
+        currentPage = 0;
+        scrollRect.horizontalNormalizedPosition = 0f;
+    }
+
     public void NextPage()
     {
         if (isScrolling) return;

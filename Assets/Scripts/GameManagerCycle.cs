@@ -14,6 +14,8 @@ public class GameManagerCycle : MonoBehaviour
     public GameObject pausePanel;
     public GameObject gameOverPanel;
     public GameObject levelCompletePanel;
+    public GameObject worldPanel;
+    public GameObject levelPanel;
 
     [Header("Gameplay References")]
     public SnapshotManager snapshot;
@@ -108,6 +110,8 @@ public class GameManagerCycle : MonoBehaviour
         pausePanel.SetActive(false);
         gameOverPanel.SetActive(false);
         levelCompletePanel.SetActive(false);
+        worldPanel.SetActive(false);
+       // levelPanel.SetActive(false);
     }
 
     void UpdatePlayerMovement()
@@ -126,19 +130,31 @@ public class GameManagerCycle : MonoBehaviour
         player.canMove = false;
     }
 
-    public void StartGame()
+    public void OnStartGameClicked()
     {
+        DisableAllPanels();
+        worldPanel.SetActive(true);
+        isGameRunning = false;
+        player.canMove = false;
+        //StartGame();
+    }
+
+    public void OnLevelSelected(int levelNumber)
+    {
+        Debug.Log("Level Selected: " + levelNumber);
         Time.timeScale = 1f;
         StopAllCoroutines();
 
-        levelIndex = 0;
+        levelIndex = levelNumber;
         layoutIndex = 0;
 
         snapshot.ClearSnapshot();
         player.ResetPosition();
 
         DisableAllPanels();
+        levelPanel.SetActive(false);
         gameplayPanel.SetActive(true);
+
 
         LoadLevel();
     }
@@ -160,12 +176,12 @@ public class GameManagerCycle : MonoBehaviour
         //levelTimer = level.levelTime;
         //mapTimer = level.mapChangeTime;
 
-        levelText.text = "LEVEL " + (levelIndex + 1);
+        levelText.text = "LEVEL " + (levelIndex);
 
         timerText.text = "TIMER : " + levelTimer.ToString("0");
         mapTimerText.text = "MAP TIMER : " + mapTimer.ToString("0");
 
-        generator.GenerateFromJson(levelIndex + 1, layoutIndex);
+        generator.GenerateFromJson(levelIndex, layoutIndex);
 
         //SetObstacleMovement(false); 
         DecideMovementForCurrentLayout();      
@@ -183,7 +199,7 @@ public class GameManagerCycle : MonoBehaviour
     {
         movingObstaclesForLayout.Clear();
 
-        bool allowMovement = (levelIndex + 1) >= 4;
+        bool allowMovement = (levelIndex) >= 4;
 
         List<MovingObstacle> obstacles = new List<MovingObstacle>();
 
@@ -368,9 +384,9 @@ public class GameManagerCycle : MonoBehaviour
 
     void SaveLevelStars()
     {
-        int currentLevelNumber = levelIndex + 1;
+        int currentLevelNumber = levelIndex;
 
-        string levelKey = "LevelStars_" + currentLevelNumber;
+        string levelKey = "LevelStars" + currentLevelNumber;
         int previousBestStars = PlayerPrefs.GetInt(levelKey, 0);
 
         if (earnedStars > previousBestStars)
@@ -403,10 +419,34 @@ public class GameManagerCycle : MonoBehaviour
 
     public void PlayerReachedDoor()
     {
-        StartCoroutine(LevelCompleteSequence());
+        //StartCoroutine(LevelCompleteSequence());
+        OnLevelCompleted();
     }
 
-    IEnumerator LevelCompleteSequence()
+    //IEnumerator LevelCompleteSequence()
+    //{
+    //    isGameRunning = false;
+    //    player.canMove = false;
+
+    //    CalculateStars();
+
+    //    DisableAllPanels();
+    //    levelCompletePanel.SetActive(true);
+
+    //    yield return new WaitForSeconds(3f);
+
+    //    levelIndex++;
+    //    layoutIndex = 0;
+
+    //    UpdateHighestLevel();
+
+    //    DisableAllPanels();
+    //    gameplayPanel.SetActive(true);
+
+    //    LoadLevel();
+    //}
+
+    void OnLevelCompleted()
     {
         isGameRunning = false;
         player.canMove = false;
@@ -415,12 +455,20 @@ public class GameManagerCycle : MonoBehaviour
 
         DisableAllPanels();
         levelCompletePanel.SetActive(true);
+    }
 
-        yield return new WaitForSeconds(3f);
-
+    public void OnNextLevelButton()
+    {
         levelIndex++;
-        layoutIndex = 0;
 
+        JsonLevel level = JsonLevelLoader.Instance.GetLevel(levelIndex);
+        if (level == null)
+        {
+            ShowMenu(); 
+            return;
+        }
+
+        layoutIndex = 0;
         UpdateHighestLevel();
 
         DisableAllPanels();
@@ -449,10 +497,10 @@ public class GameManagerCycle : MonoBehaviour
         //SetObstacleMovement(false);
         StopAllObstacleMovement();
 
-        PlayerPrefs.SetInt("LastReachedLevel", levelIndex + 1);
+        PlayerPrefs.SetInt("LastReachedLevel", levelIndex);
         UpdateHighestLevel();
 
-        lastLevelText.text = "LEVEL REACHED : " + (levelIndex + 1);
+        lastLevelText.text = "LEVEL REACHED : " + (levelIndex);
         bestLevelGameOverText.text =
             "BEST LEVEL : " + PlayerPrefs.GetInt("HighestLevel", 1);
 
@@ -460,28 +508,28 @@ public class GameManagerCycle : MonoBehaviour
         player.canMove = false;
     }
 
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-        StopAllCoroutines();
+    //public void RestartGame()
+    //{
+    //    Time.timeScale = 1f;
+    //    StopAllCoroutines();
 
-        levelIndex = 0;
-        layoutIndex = 0;
+    //    levelIndex = 0;
+    //    layoutIndex = 0;
 
-        snapshot.ClearSnapshot();
-        //SetObstacleMovement(false);
-        StopAllObstacleMovement();
+    //    snapshot.ClearSnapshot();
+    //    //SetObstacleMovement(false);
+    //    StopAllObstacleMovement();
 
-        player.ResetPosition();
+    //    player.ResetPosition();
 
-        snapshotActive = false;
-        isGameRunning = false;
+    //    snapshotActive = false;
+    //    isGameRunning = false;
 
-        DisableAllPanels();
-        gameplayPanel.SetActive(true);
+    //    DisableAllPanels();
+    //    gameplayPanel.SetActive(true);
 
-        LoadLevel();
-    }
+    //    LoadLevel();
+    //}
 
     public void Retry()
     {
@@ -560,12 +608,12 @@ public class GameManagerCycle : MonoBehaviour
         {
             layoutIndex++;
 
-            JsonLevel level = JsonLevelLoader.Instance.GetLevel(levelIndex+1);
+            JsonLevel level = JsonLevelLoader.Instance.GetLevel(levelIndex);
 
             if (layoutIndex >= level.layouts.Count)
                 layoutIndex = 0; // loop layouts
 
-            generator.GenerateFromJson(levelIndex + 1, layoutIndex);
+            generator.GenerateFromJson(levelIndex, layoutIndex);
 
             DecideMovementForCurrentLayout();
             //SetObstacleMovement(false);
@@ -601,7 +649,7 @@ public class GameManagerCycle : MonoBehaviour
 
     void UpdateHighestLevel()
     {
-        int currentLevel = levelIndex + 1;
+        int currentLevel = levelIndex;
         if (currentLevel > highestLevel)
         {
             highestLevel = currentLevel;
