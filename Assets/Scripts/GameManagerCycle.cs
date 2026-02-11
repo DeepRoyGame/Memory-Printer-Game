@@ -238,6 +238,14 @@ public class GameManagerCycle : MonoBehaviour
 
 
         LoadLevel();
+
+        if (!BatteryManager.Instance.HasBattery())
+        {
+            Debug.Log("No battery left!");
+            return; // later show popup
+        }
+
+        BatteryManager.Instance.ConsumeBattery();
     }
 
     void LoadLevel()
@@ -502,6 +510,7 @@ public class GameManagerCycle : MonoBehaviour
         player.canMove = false;
 
         CalculateStars();
+        GiveCoinsForStars();
 
         int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
 
@@ -591,6 +600,14 @@ public class GameManagerCycle : MonoBehaviour
 
     public void Retry()
     {
+        if (!BatteryManager.Instance.HasBattery())
+        {
+            Debug.Log("No battery left for retry");
+            return;
+        }
+
+        BatteryManager.Instance.ConsumeBattery();
+
         Time.timeScale = 1f;
 
         snapshot.ClearSnapshot();
@@ -719,4 +736,25 @@ public class GameManagerCycle : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void GiveCoinsForStars()
+    {
+        int coins = 0;
+
+        switch (earnedStars)
+        {
+            case 3:
+                coins = 15;
+                break;
+            case 2:
+                coins = 10;
+                break;
+            case 1:
+                coins = 5;
+                break;
+        }
+
+        GameEconomyManager.Instance.AddCoins(coins);
+    }
+
 }
