@@ -2714,7 +2714,12 @@ MonoBehaviour:
   gameOverPanel: {fileID: 82509337}
   levelCompletePanel: {fileID: 1431752350}
   worldPanel: {fileID: 1389555849}
-  levelPanel: {fileID: 1491049239}
+  worldLevelPanels:
+  - {fileID: 270902743}
+  - {fileID: 228663254}
+  - {fileID: 351782596}
+  - {fileID: 1124023768}
+  - {fileID: 1145812804}
   snapshot: {fileID: 2086586503}
   generator: {fileID: 211100146}
   player: {fileID: 959374380}
@@ -3282,7 +3287,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 393748538}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 327556126}
+        m_TargetAssemblyTypeName: GameManagerCycle, Assembly-CSharp
+        m_MethodName: OnNextLevelButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &393748538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4073,7 +4090,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 327556126}
         m_TargetAssemblyTypeName: GameManagerCycle, Assembly-CSharp
-        m_MethodName: RestartGame
+        m_MethodName: Retry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8488,8 +8505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3440a0608002d444a9d35b556f3e9e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldPanel: {fileID: 1389555849}
-  worldLevelPanel: {fileID: 270902743}
+  worldIndex: 0
 --- !u!1 &1152633733
 GameObject:
   m_ObjectHideFlags: 0
@@ -11125,7 +11141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11911,8 +11927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3440a0608002d444a9d35b556f3e9e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldPanel: {fileID: 1389555849}
-  worldLevelPanel: {fileID: 228663254}
+  worldIndex: 1
 --- !u!114 &1508389330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13567,8 +13582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3440a0608002d444a9d35b556f3e9e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldPanel: {fileID: 1389555849}
-  worldLevelPanel: {fileID: 351782596}
+  worldIndex: 2
 --- !u!114 &1849112874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13879,8 +13893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3440a0608002d444a9d35b556f3e9e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldPanel: {fileID: 1389555849}
-  worldLevelPanel: {fileID: 1124023768}
+  worldIndex: 3
 --- !u!114 &1878543800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15713,8 +15726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3440a0608002d444a9d35b556f3e9e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldPanel: {fileID: 1389555849}
-  worldLevelPanel: {fileID: 1145812804}
+  worldIndex: 4
 --- !u!114 &2131647832
 MonoBehaviour:
   m_ObjectHideFlags: 0

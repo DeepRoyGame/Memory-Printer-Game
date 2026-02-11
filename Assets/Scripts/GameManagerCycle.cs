@@ -15,7 +15,9 @@ public class GameManagerCycle : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject levelCompletePanel;
     public GameObject worldPanel;
-    public GameObject levelPanel;
+
+    [Header("World Level Panels")]
+    public List<GameObject> worldLevelPanels;
 
     [Header("Gameplay References")]
     public SnapshotManager snapshot;
@@ -47,10 +49,6 @@ public class GameManagerCycle : MonoBehaviour
 
     private int earnedStars;
     private int totalStars;
-
-
-    //[Header("Levels (ScriptableObjects)")]
-    ////public List<LevelData> levels;
    
     [Header("Power Ups")]
     public float powerUpDuration = 2f;
@@ -111,7 +109,9 @@ public class GameManagerCycle : MonoBehaviour
         gameOverPanel.SetActive(false);
         levelCompletePanel.SetActive(false);
         worldPanel.SetActive(false);
-       // levelPanel.SetActive(false);
+
+        foreach (GameObject panel in worldLevelPanels)
+            panel.SetActive(false);
     }
 
     void UpdatePlayerMovement()
@@ -120,6 +120,11 @@ public class GameManagerCycle : MonoBehaviour
     }
     public void ShowMenu()
     {
+        Time.timeScale = 1f;
+
+        snapshot.ClearSnapshot();
+        StopAllCoroutines();
+
         DisableAllPanels();
         menuPanel.SetActive(true);
 
@@ -132,11 +137,29 @@ public class GameManagerCycle : MonoBehaviour
 
     public void OnStartGameClicked()
     {
+        Time.timeScale = 1f; 
+        StopAllCoroutines();
+
+        snapshot.ClearSnapshot();
+        player.ResetPosition();
+
         DisableAllPanels();
         worldPanel.SetActive(true);
         isGameRunning = false;
         player.canMove = false;
-        //StartGame();
+        
+    }
+
+    public void OpenWorldLevels(int worldIndex)
+    {
+        DisableAllPanels();
+        worldLevelPanels[worldIndex].SetActive(true);
+    }
+
+    public void BackToWorldPanel()
+    {
+        DisableAllPanels();
+        worldPanel.SetActive(true);
     }
 
     public void OnLevelSelected(int levelNumber)
@@ -152,7 +175,6 @@ public class GameManagerCycle : MonoBehaviour
         player.ResetPosition();
 
         DisableAllPanels();
-        levelPanel.SetActive(false);
         gameplayPanel.SetActive(true);
 
 
@@ -236,16 +258,6 @@ public class GameManagerCycle : MonoBehaviour
                 obstacles[i].ForceStopMovement();
         }
     }
-
-    //void SetObstacleMovement(bool active)
-    //{
-    //    foreach (Transform ob in generator.obstaclesParent)
-    //    {
-    //        MovingObstacle mo = ob.GetComponent<MovingObstacle>();
-    //        if (mo != null)
-    //            mo.canMove = active;
-    //    }
-    //}
 
     void ApplyStoredMovementRules()
     {
@@ -423,28 +435,7 @@ public class GameManagerCycle : MonoBehaviour
         OnLevelCompleted();
     }
 
-    //IEnumerator LevelCompleteSequence()
-    //{
-    //    isGameRunning = false;
-    //    player.canMove = false;
-
-    //    CalculateStars();
-
-    //    DisableAllPanels();
-    //    levelCompletePanel.SetActive(true);
-
-    //    yield return new WaitForSeconds(3f);
-
-    //    levelIndex++;
-    //    layoutIndex = 0;
-
-    //    UpdateHighestLevel();
-
-    //    DisableAllPanels();
-    //    gameplayPanel.SetActive(true);
-
-    //    LoadLevel();
-    //}
+   
 
     void OnLevelCompleted()
     {
