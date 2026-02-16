@@ -242,17 +242,6 @@ public class GameManagerCycle : MonoBehaviour
     }
     public void OnLevelSelected(int levelNumber)
     {
-        // 🛑 HARD BLOCK IF NO BATTERY
-        if (!BatteryManager.Instance.HasBattery())
-        {
-            Debug.Log("No battery left! Block level start.");
-            // TODO: show battery empty popup
-            return;
-        }
-
-        // 🔋 CONSUME FIRST
-        BatteryManager.Instance.ConsumeBattery();
-
         Time.timeScale = 1f;
         StopAllCoroutines();
 
@@ -272,20 +261,10 @@ public class GameManagerCycle : MonoBehaviour
 
     void LoadLevel()
     {
+        UpdateHUD(HUDVisibilityController.UIState.Gameplay);
         levelTimer = 60f;
         mapTimer = 20f;
         layoutIndex = 0;
-
-        //if (levelIndex >= levels.Count)
-        //{
-        //    ShowMenu(); // game completed
-        //    return;
-        //}
-
-        //LevelData level = levels[levelIndex];
-
-        //levelTimer = level.levelTime;
-        //mapTimer = level.mapChangeTime;
 
         levelText.text = "LEVEL " + (levelIndex);
 
@@ -524,8 +503,6 @@ public class GameManagerCycle : MonoBehaviour
         OnLevelCompleted();
     }
 
-   
-
     void OnLevelCompleted()
     {
         isGameRunning = false;
@@ -548,15 +525,6 @@ public class GameManagerCycle : MonoBehaviour
     }
     public void OnNextLevelButton()
     {
-        if (!BatteryManager.Instance.HasBattery())
-        {
-            Debug.Log("No battery left for next level");
-            ShowMenu(); // or battery popup
-            return;
-        }
-
-        BatteryManager.Instance.ConsumeBattery();
-
         levelIndex++;
 
         JsonLevel level = JsonLevelLoader.Instance.GetLevel(levelIndex);
@@ -576,20 +544,6 @@ public class GameManagerCycle : MonoBehaviour
         LoadLevel();
         UpdateHUD(HUDVisibilityController.UIState.Gameplay);
     }
-
-
-    //public void PlayerHitObstacle()
-    //{
-    //    StartCoroutine(GameOverDelay());
-    //}
-
-    //IEnumerator GameOverDelay()
-    //{
-    //    player.PlayHitAnimation();
-    //    yield return new WaitForSeconds(0.8f);
-    //    ShowGameOver();
-    //}
-
     public void PlayerHitObstacle()
     {
         if (!isGameRunning) return;
@@ -627,29 +581,6 @@ public class GameManagerCycle : MonoBehaviour
         isGameRunning = false;
         player.canMove = false;
     }
-
-    //public void RestartGame()
-    //{
-    //    Time.timeScale = 1f;
-    //    StopAllCoroutines();
-
-    //    levelIndex = 0;
-    //    layoutIndex = 0;
-
-    //    snapshot.ClearSnapshot();
-    //    //SetObstacleMovement(false);
-    //    StopAllObstacleMovement();
-
-    //    player.ResetPosition();
-
-    //    snapshotActive = false;
-    //    isGameRunning = false;
-
-    //    DisableAllPanels();
-    //    gameplayPanel.SetActive(true);
-
-    //    LoadLevel();
-    //}
 
     public void Retry()
     {

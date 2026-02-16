@@ -17,20 +17,16 @@ public class HUDVisibilityController : MonoBehaviour
         GameOver,
         LevelComplete
     }
-
     public void UpdateHUD(UIState state)
     {
-        // Battery visibility
         bool showBattery =
-            state == UIState.GameOver ||
-            state == UIState.Level ||
             state == UIState.Revive ||
+            state == UIState.GameOver ||
             state == UIState.World ||
-            state == UIState.LevelComplete;
+            state == UIState.Level;
 
         batteryBar.SetActive(showBattery);
 
-        // Coin visibility
         bool showCoins =
             state == UIState.Menu ||
             state == UIState.Level ||
@@ -38,4 +34,5 @@ public class HUDVisibilityController : MonoBehaviour
 
         coinPanel.SetActive(showCoins);
     }
+
 }
