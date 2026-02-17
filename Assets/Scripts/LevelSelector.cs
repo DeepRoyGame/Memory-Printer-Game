@@ -16,6 +16,7 @@ public class LevelSelector : MonoBehaviour
 
     private Button button;
     private Material runtimeTextMaterial;
+    private int levelNumber;
 
     void Awake()
     {
@@ -25,6 +26,7 @@ public class LevelSelector : MonoBehaviour
 
     public void Setup(int level, bool unlocked, int starCount, WorldData world)
     {
+        levelNumber = level;
         levelText.text = level.ToString();
 
         // 🔹 BUTTON FRAME
@@ -62,6 +64,6 @@ public class LevelSelector : MonoBehaviour
 
     void OnClicked()
     {
-        GameManagerCycle.Instance.OnLevelSelected(int.Parse(levelText.text));
+        GameManagerCycle.Instance.OnLevelSelected(levelNumber);
     }
 }
