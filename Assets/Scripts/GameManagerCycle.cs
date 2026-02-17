@@ -310,7 +310,7 @@ public class GameManagerCycle : MonoBehaviour
     {
         movingObstaclesForLayout.Clear();
 
-        bool allowMovement = (levelIndex) >= 4;
+        //bool allowMovement = (levelIndex) >= 4;
 
         List<MovingObstacle> obstacles = new List<MovingObstacle>();
 
@@ -324,7 +324,21 @@ public class GameManagerCycle : MonoBehaviour
             }
         }
 
-        if (!allowMovement || obstacles.Count == 0)
+        if (obstacles.Count == 0)
+            return;
+
+        MovingObstacle.MoveType moveType = MovingObstacle.MoveType.None;
+
+        if (levelIndex >= 11 && levelIndex <= 20)
+            moveType = MovingObstacle.MoveType.UpDown;
+
+        else if (levelIndex >= 21 && levelIndex <= 30)
+            moveType = MovingObstacle.MoveType.LeftRight;
+
+        else if (levelIndex >= 31 && levelIndex <= 50)
+            moveType = MovingObstacle.MoveType.Both;
+
+        if (moveType == MovingObstacle.MoveType.None)
             return;
 
         // shuffle
@@ -342,7 +356,10 @@ public class GameManagerCycle : MonoBehaviour
         for (int i = 0; i < obstacles.Count; i++)
         {
             if (i < moveCount)
+            {
+                obstacles[i].SetMovementType(moveType);
                 obstacles[i].StartWarningGlow();
+            }
             else
                 obstacles[i].ForceStopMovement();
         }
@@ -361,7 +378,7 @@ public class GameManagerCycle : MonoBehaviour
                 mo.StartWarningGlow();
         }
     }
-    //t
+    
     void StopAllObstacleMovement()
     {
         foreach (Transform ob in generator.obstaclesParent)
