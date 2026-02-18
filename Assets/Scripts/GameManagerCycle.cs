@@ -94,6 +94,14 @@ public class GameManagerCycle : MonoBehaviour
     public GameObject levelPanel;
 
     private HashSet<MovingObstacle> movingObstaclesForLayout = new HashSet<MovingObstacle>();
+    [Header("Revive System")]
+    public int maxRevivesPerLevel = 2;
+    public int firstReviveCost = 100;
+    public int secondReviveCost = 150;
+
+    private int reviveCount = 0;
+    [Header("No Battery Panel")]
+    public GameObject noBatteryPanel;
 
     void Awake()
     {
@@ -148,7 +156,8 @@ public class GameManagerCycle : MonoBehaviour
         //    panel.SetActive(false);
         if (levelPanel != null)
             levelPanel.SetActive(false);
-
+        if (noBatteryPanel != null)
+            noBatteryPanel.SetActive(false);
         backgroundPanel.SetActive(true);
     }
     void UpdateHUD(HUDVisibilityController.UIState state)
@@ -195,38 +204,6 @@ public class GameManagerCycle : MonoBehaviour
         //UpdateWorldVisuals();
     }
 
-    //public bool IsWorldUnlocked(int worldIndex)
-    //{
-    //    int totalStars = PlayerPrefs.GetInt("TotalStar", 0);
-
-    //    return totalStars >= worldUnlockStars[worldIndex];
-    //}
-
-    //public void UpdateWorldVisuals()
-    //{
-    //    int totalStars = PlayerPrefs.GetInt("TotalStar", 0);
-
-    //    for (int i = 0; i < worlds.Length; i++)
-    //    {
-    //        Image img = worlds[i].GetComponent<Image>();
-
-    //        if (img == null)
-    //        {
-    //            Debug.LogWarning("No Image component found on " + worlds[i].name);
-    //            continue;
-    //        }
-
-    //        if (totalStars >= worldUnlockStars[i])
-    //        {
-    //            img.sprite = unlockedSprites[i];
-    //        }
-    //        else
-    //        {
-    //            img.sprite = lockedSprites[i];
-    //        }
-    //    }
-    //}
-
     public void OpenWorldLevels(int worldIndex)
     {
         DisableAllPanels();
@@ -243,15 +220,15 @@ public class GameManagerCycle : MonoBehaviour
     public void OnLevelSelected(int levelNumber)
     {
         // 🛑 HARD BLOCK IF NO BATTERY
-        if (!BatteryManager.Instance.HasBattery())
-        {
-            Debug.Log("No battery left! Block level start.");
-            // TODO: show battery empty popup
-            return;
-        }
+        //if (!BatteryManager.Instance.HasBattery())
+        //{
+        //    Debug.Log("No battery left! Block level start.");
+        //    // TODO: show battery empty popup
+        //    return;
+        //}
 
-        // 🔋 CONSUME FIRST
-        BatteryManager.Instance.ConsumeBattery();
+        //// 🔋 CONSUME FIRST
+        //BatteryManager.Instance.ConsumeBattery();
 
         Time.timeScale = 1f;
         StopAllCoroutines();
@@ -272,20 +249,11 @@ public class GameManagerCycle : MonoBehaviour
 
     void LoadLevel()
     {
+        reviveCount = 0;
+
         levelTimer = 60f;
         mapTimer = 20f;
         layoutIndex = 0;
-
-        //if (levelIndex >= levels.Count)
-        //{
-        //    ShowMenu(); // game completed
-        //    return;
-        //}
-
-        //LevelData level = levels[levelIndex];
-
-        //levelTimer = level.levelTime;
-        //mapTimer = level.mapChangeTime;
 
         levelText.text = "LEVEL " + (levelIndex);
 
@@ -565,14 +533,14 @@ public class GameManagerCycle : MonoBehaviour
     }
     public void OnNextLevelButton()
     {
-        if (!BatteryManager.Instance.HasBattery())
-        {
-            Debug.Log("No battery left for next level");
-            ShowMenu(); // or battery popup
-            return;
-        }
+        //if (!BatteryManager.Instance.HasBattery())
+        //{
+        //    Debug.Log("No battery left for next level");
+        //    ShowMenu(); // or battery popup
+        //    return;
+        //}
 
-        BatteryManager.Instance.ConsumeBattery();
+        //BatteryManager.Instance.ConsumeBattery();
 
         levelIndex++;
 
@@ -617,13 +585,61 @@ public class GameManagerCycle : MonoBehaviour
         StartCoroutine(ShowReviveOrGameOver());
     }
 
+    //IEnumerator ShowReviveOrGameOver()
+    //{
+    //    yield return new WaitForSeconds(0.8f);
+
+    //    DisableAllPanels();
+    //    revivePanel.SetActive(true);   // your existing UI
+    //    UpdateHUD(HUDVisibilityController.UIState.Revive);
+    //}
     IEnumerator ShowReviveOrGameOver()
     {
         yield return new WaitForSeconds(0.8f);
 
+        reviveCount++; // ✅ count every death
+
         DisableAllPanels();
-        revivePanel.SetActive(true);   // your existing UI
-        UpdateHUD(HUDVisibilityController.UIState.Revive);
+
+        if (reviveCount <= maxRevivesPerLevel)
+        {
+            RevivePanelController rpc =
+                revivePanel.GetComponent<RevivePanelController>();
+
+            if (rpc != null)
+            {
+                int cost =
+                    (reviveCount == 1) ? firstReviveCost : secondReviveCost;
+
+                rpc.SetReviveCost(cost);
+            }
+
+            revivePanel.SetActive(true);
+            UpdateHUD(HUDVisibilityController.UIState.Revive);
+        }
+        else
+        {
+            ShowGameOver(); // ❌ no more revives
+        }
+    }
+
+
+    void ShowNoBatteryPanel()
+    {
+        StopAllCoroutines();
+
+        snapshot.ClearSnapshot();
+        freezeTimeActive = false;
+        powerUpActive = false;
+        snapshotActive = false;
+
+        DisableAllPanels();
+        noBatteryPanel.SetActive(true);
+
+        UpdateHUD(HUDVisibilityController.UIState.Menu);
+
+        isGameRunning = false;
+        player.canMove = false;
     }
 
     public void ShowGameOver()
@@ -667,34 +683,34 @@ public class GameManagerCycle : MonoBehaviour
 
     //    LoadLevel();
     //}
-
     public void Retry()
     {
         if (!BatteryManager.Instance.HasBattery())
         {
-            Debug.Log("No battery left for retry");
+            ShowNoBatteryPanel();
             return;
         }
 
         BatteryManager.Instance.ConsumeBattery();
 
         Time.timeScale = 1f;
+        StopAllCoroutines();
 
         snapshot.ClearSnapshot();
         player.ResetPosition();
-
         layoutIndex = 0;
 
         DisableAllPanels();
         backgroundPanel.SetActive(false);
         gameplayPanel.SetActive(true);
 
-        LoadLevel(); 
+        LoadLevel();
 
-        //SetObstacleMovement(false);
-        StopAllObstacleMovement() ; 
+        StopAllObstacleMovement();
         DecideMovementForCurrentLayout();
 
+        // 🔥 THIS WAS MISSING
+        UpdateHUD(HUDVisibilityController.UIState.Gameplay);
     }
 
     public void PauseGame()
