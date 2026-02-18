@@ -51,16 +51,6 @@ public class GameManagerCycle : MonoBehaviour
     private int earnedStars;
     private int totalStars;
 
-    //[Header("World Unlock Settings")]
-    //public int[] worldUnlockStars = new int[5] { 0, 20, 45, 75, 110 };
-
-    //[Header("World Lock Images")]
-    //public GameObject[] worlds;
-
-    //[Header("Lock & Unlock Sprites")]
-    //public Sprite[] lockedSprites;
-    //public Sprite[] unlockedSprites;
-
     [Header("Level Unlock System")]
     public int totalLevels = 50;
 
@@ -83,8 +73,6 @@ public class GameManagerCycle : MonoBehaviour
     private bool snapshotActive;
     private bool isGameRunning;
 
-    [Header("Revive Panel")]
-    public GameObject revivePanel;
 
     [Header("HUD")]
     public HUDVisibilityController hud;
@@ -94,10 +82,6 @@ public class GameManagerCycle : MonoBehaviour
     public GameObject levelPanel;
 
     private HashSet<MovingObstacle> movingObstaclesForLayout = new HashSet<MovingObstacle>();
-    [Header("Revive System")]
-    public int maxRevivesPerLevel = 2;
-    public int firstReviveCost = 100;
-    public int secondReviveCost = 150;
 
     private int reviveCount = 0;
     [Header("No Battery Panel")]
@@ -150,14 +134,13 @@ public class GameManagerCycle : MonoBehaviour
         gameOverPanel.SetActive(false);
         levelCompletePanel.SetActive(false);
         worldPanel.SetActive(false);
-        revivePanel.SetActive(false);
 
-        //foreach (GameObject panel in worldLevelPanels)
-        //    panel.SetActive(false);
         if (levelPanel != null)
             levelPanel.SetActive(false);
+
         if (noBatteryPanel != null)
             noBatteryPanel.SetActive(false);
+
         backgroundPanel.SetActive(true);
     }
     void UpdateHUD(HUDVisibilityController.UIState state)
@@ -179,13 +162,16 @@ public class GameManagerCycle : MonoBehaviour
 
         DisableAllPanels();
         menuPanel.SetActive(true);
+
         UpdateHUD(HUDVisibilityController.UIState.Menu);
+
         bestLevelMenuText.text =
             "BEST LEVEL : " + PlayerPrefs.GetInt("HighestLevel", 1);
 
         isGameRunning = false;
         player.canMove = false;
     }
+
 
     public void OnStartGameClicked()
     {
@@ -219,22 +205,25 @@ public class GameManagerCycle : MonoBehaviour
     }
     public void OnLevelSelected(int levelNumber)
     {
-        // 🛑 HARD BLOCK IF NO BATTERY
-        //if (!BatteryManager.Instance.HasBattery())
-        //{
-        //    Debug.Log("No battery left! Block level start.");
-        //    // TODO: show battery empty popup
-        //    return;
-        //}
+        levelIndex = levelNumber;
+        layoutIndex = 0;
 
-        //// 🔋 CONSUME FIRST
-        //BatteryManager.Instance.ConsumeBattery();
+        bool alreadyPlayed = HasLevelBeenPlayed(levelIndex);
+
+        // 🔋 Replaying a level costs battery
+        if (alreadyPlayed)
+        {
+            if (!BatteryManager.Instance.HasBattery())
+            {
+                ShowNoBatteryPanel();
+                return;
+            }
+
+            BatteryManager.Instance.ConsumeBattery();
+        }
 
         Time.timeScale = 1f;
         StopAllCoroutines();
-
-        levelIndex = levelNumber;
-        layoutIndex = 0;
 
         snapshot.ClearSnapshot();
         player.ResetPosition();
@@ -242,10 +231,11 @@ public class GameManagerCycle : MonoBehaviour
         DisableAllPanels();
         backgroundPanel.SetActive(false);
         gameplayPanel.SetActive(true);
-        UpdateHUD(HUDVisibilityController.UIState.Gameplay);
 
+        UpdateHUD(HUDVisibilityController.UIState.Gameplay);
         LoadLevel();
     }
+
 
     void LoadLevel()
     {
@@ -513,8 +503,11 @@ public class GameManagerCycle : MonoBehaviour
 
     void OnLevelCompleted()
     {
+        ClearLevelFailed(levelIndex);
+
         isGameRunning = false;
         player.canMove = false;
+        MarkLevelPlayed(levelIndex);   // 🔥 REQUIRED
 
         CalculateStars();
         GiveCoinsForStars();
@@ -533,15 +526,6 @@ public class GameManagerCycle : MonoBehaviour
     }
     public void OnNextLevelButton()
     {
-        //if (!BatteryManager.Instance.HasBattery())
-        //{
-        //    Debug.Log("No battery left for next level");
-        //    ShowMenu(); // or battery popup
-        //    return;
-        //}
-
-        //BatteryManager.Instance.ConsumeBattery();
-
         levelIndex++;
 
         JsonLevel level = JsonLevelLoader.Instance.GetLevel(levelIndex);
@@ -561,66 +545,33 @@ public class GameManagerCycle : MonoBehaviour
         LoadLevel();
         UpdateHUD(HUDVisibilityController.UIState.Gameplay);
     }
-
-
-    //public void PlayerHitObstacle()
-    //{
-    //    StartCoroutine(GameOverDelay());
-    //}
-
-    //IEnumerator GameOverDelay()
-    //{
-    //    player.PlayHitAnimation();
-    //    yield return new WaitForSeconds(0.8f);
-    //    ShowGameOver();
-    //}
-
     public void PlayerHitObstacle()
     {
         if (!isGameRunning) return;
 
+        MarkLevelPlayed(levelIndex);   // level now counts as played
+
         isGameRunning = false;
+        player.canMove = false;
+
         player.PlayHitAnimation();
 
-        StartCoroutine(ShowReviveOrGameOver());
+        StartCoroutine(GameOverAfterDeathSequence());
     }
 
-    //IEnumerator ShowReviveOrGameOver()
-    //{
-    //    yield return new WaitForSeconds(0.8f);
-
-    //    DisableAllPanels();
-    //    revivePanel.SetActive(true);   // your existing UI
-    //    UpdateHUD(HUDVisibilityController.UIState.Revive);
-    //}
-    IEnumerator ShowReviveOrGameOver()
+    IEnumerator GameOverAfterDeathSequence()
     {
-        yield return new WaitForSeconds(0.8f);
+        // ⏱ Wait for player hit animation
+        yield return new WaitForSeconds(1.8f);
+        // ⬆ adjust if your animation is longer
 
-        reviveCount++; // ✅ count every death
+        // 🧱 Stop obstacle movement AFTER they fall
+        StopAllObstacleMovement();
 
-        DisableAllPanels();
+        // ⏱ Small buffer for obstacle settle
+        yield return new WaitForSeconds(0.3f);
 
-        if (reviveCount <= maxRevivesPerLevel)
-        {
-            RevivePanelController rpc =
-                revivePanel.GetComponent<RevivePanelController>();
-
-            if (rpc != null)
-            {
-                int cost =
-                    (reviveCount == 1) ? firstReviveCost : secondReviveCost;
-
-                rpc.SetReviveCost(cost);
-            }
-
-            revivePanel.SetActive(true);
-            UpdateHUD(HUDVisibilityController.UIState.Revive);
-        }
-        else
-        {
-            ShowGameOver(); // ❌ no more revives
-        }
+        ShowGameOver();
     }
 
 
@@ -633,10 +584,13 @@ public class GameManagerCycle : MonoBehaviour
         powerUpActive = false;
         snapshotActive = false;
 
+        Time.timeScale = 0f; // 🔥 freeze game properly
+
         DisableAllPanels();
         noBatteryPanel.SetActive(true);
 
-        UpdateHUD(HUDVisibilityController.UIState.Menu);
+        // ✅ Correct HUD state
+        UpdateHUD(HUDVisibilityController.UIState.NoBattery);
 
         isGameRunning = false;
         player.canMove = false;
@@ -660,31 +614,9 @@ public class GameManagerCycle : MonoBehaviour
         isGameRunning = false;
         player.canMove = false;
     }
-
-    //public void RestartGame()
-    //{
-    //    Time.timeScale = 1f;
-    //    StopAllCoroutines();
-
-    //    levelIndex = 0;
-    //    layoutIndex = 0;
-
-    //    snapshot.ClearSnapshot();
-    //    //SetObstacleMovement(false);
-    //    StopAllObstacleMovement();
-
-    //    player.ResetPosition();
-
-    //    snapshotActive = false;
-    //    isGameRunning = false;
-
-    //    DisableAllPanels();
-    //    gameplayPanel.SetActive(true);
-
-    //    LoadLevel();
-    //}
     public void Retry()
     {
+        // 🔋 Retry ALWAYS costs battery
         if (!BatteryManager.Instance.HasBattery())
         {
             ShowNoBatteryPanel();
@@ -709,7 +641,6 @@ public class GameManagerCycle : MonoBehaviour
         StopAllObstacleMovement();
         DecideMovementForCurrentLayout();
 
-        // 🔥 THIS WAS MISSING
         UpdateHUD(HUDVisibilityController.UIState.Gameplay);
     }
 
@@ -886,5 +817,21 @@ public class GameManagerCycle : MonoBehaviour
         levelPanel.SetActive(true);
         UpdateHUD(HUDVisibilityController.UIState.Level);
     }
+    void ClearLevelFailed(int level)
+    {
+        PlayerPrefs.DeleteKey($"LevelFailed_{level}");
+    }
+
+    bool HasLevelBeenPlayed(int level)
+    {
+        return PlayerPrefs.GetInt($"LevelPlayed_{level}", 0) == 1;
+    }
+
+    void MarkLevelPlayed(int level)
+    {
+        PlayerPrefs.SetInt($"LevelPlayed_{level}", 1);
+        PlayerPrefs.Save();
+    }
+
 
 }
