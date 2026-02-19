@@ -29,11 +29,19 @@ public class MovingObstacle : MonoBehaviour
 
     private int squareStep = 0;
     private Vector3 squareStartPos;
-    private float squareSize = 2.4f;
+    private float squareSize;
     private int squareDirection = 1;
     private Vector3 originalStartPos;
-    private MoveType currentMoveType = MoveType.None;
 
+    [Header("Grid Settings")]
+    public float tileSize = 1.2f;
+    public int minBorderIndex = 1;
+    public int maxBorderIndex = 8;
+
+    [HideInInspector] public int tileX;
+    [HideInInspector] public int tileZ;
+
+    private MoveType currentMoveType = MoveType.None;
 
     void Start()
     {
@@ -48,6 +56,7 @@ public class MovingObstacle : MonoBehaviour
         startPos = transform.position;
         originalStartPos = transform.position;
         squareStartPos = originalStartPos;
+        CalculateSquareSize();
         //moveAxis = (Random.value > 0.5f) ? Vector3.right : Vector3.forward;
     }
 
@@ -65,6 +74,26 @@ public class MovingObstacle : MonoBehaviour
         transform.position = startPos + moveAxis * offset;
     }
 
+    void CalculateSquareSize()
+    {
+        // check border condition
+        bool isBorder =
+            tileX == minBorderIndex ||
+            tileX == maxBorderIndex ||
+            tileZ == minBorderIndex ||
+            tileZ == maxBorderIndex;
+
+        // assign square size
+        squareSize = isBorder ? tileSize : tileSize * 2f;
+    }
+
+    public void InitializeFromGrid()
+    {
+        originalStartPos = transform.position;
+        squareStartPos = originalStartPos;
+
+        CalculateSquareSize();
+    }
     void UpdateSquareMovement()
     {
         Vector3 targetPos = GetSquareTarget(squareStep);
@@ -76,7 +105,6 @@ public class MovingObstacle : MonoBehaviour
             moveSpeed * Time.deltaTime
         );
 
-        // reached corner → go to next edge
         if (Vector3.Distance(transform.position, targetPos) < 0.01f)
         {
             //squareStep = (squareStep + 1) % 4;
