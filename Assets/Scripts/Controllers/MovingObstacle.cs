@@ -9,25 +9,39 @@ public class MovingObstacle : MonoBehaviour
         None,
         UpDown,
         LeftRight,
-        Both
+        Both,
+        Square
     }
 
     [Header("Movement")]
     public bool canMove = false;
     public float moveDistance = 1.5f;
-    public float moveSpeed = 1.2f;
+    public float moveSpeed = 2f;
 
     private Vector3 startPos;
     private Vector3 moveAxis;
 
     [Header("Materials")]
     public Material defaultMat;
-    public Material glowMat; 
+    public Material glowMat;
 
     private MeshRenderer rend;
 
-    private MoveType currentMoveType = MoveType.None;
+    private int squareStep = 0;
+    private Vector3 squareStartPos;
+    private float squareSize;
+    private int squareDirection = 1;
+    private Vector3 originalStartPos;
 
+    [Header("Grid Settings")]
+    public float tileSize = 1.2f;
+    public int minBorderIndex = 1;
+    public int maxBorderIndex = 8;
+
+    [HideInInspector] public int tileX;
+    [HideInInspector] public int tileZ;
+
+    private MoveType currentMoveType = MoveType.None;
 
     void Start()
     {
@@ -40,6 +54,9 @@ public class MovingObstacle : MonoBehaviour
 
         defaultMat = rend.material;
         startPos = transform.position;
+        originalStartPos = transform.position;
+        squareStartPos = originalStartPos;
+        CalculateSquareSize();
         //moveAxis = (Random.value > 0.5f) ? Vector3.right : Vector3.forward;
     }
 
@@ -47,13 +64,72 @@ public class MovingObstacle : MonoBehaviour
     {
         if (!canMove) return;
 
+        if (currentMoveType == MoveType.Square)
+        {
+            UpdateSquareMovement();
+            return;
+        }
+
         float offset = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
         transform.position = startPos + moveAxis * offset;
     }
 
+    void CalculateSquareSize()
+    {
+        // check border condition
+        bool isBorder =
+            tileX == minBorderIndex ||
+            tileX == maxBorderIndex ||
+            tileZ == minBorderIndex ||
+            tileZ == maxBorderIndex;
+
+        // assign square size
+        squareSize = isBorder ? tileSize : tileSize * 2f;
+    }
+
+    public void InitializeFromGrid()
+    {
+        originalStartPos = transform.position;
+        squareStartPos = originalStartPos;
+
+        CalculateSquareSize();
+    }
+    void UpdateSquareMovement()
+    {
+        Vector3 targetPos = GetSquareTarget(squareStep);
+
+        // move with constant speed
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPos,
+            moveSpeed * Time.deltaTime
+        );
+
+        if (Vector3.Distance(transform.position, targetPos) < 0.01f)
+        {
+            //squareStep = (squareStep + 1) % 4;
+            squareStep += squareDirection;
+
+            if (squareStep > 3) squareStep = 0;
+            if (squareStep < 0) squareStep = 3;
+        }
+    }
+
+    Vector3 GetSquareTarget(int step)
+    {
+        switch (step)
+        {
+            case 0: return squareStartPos + Vector3.right * squareSize;
+            case 1: return squareStartPos + (Vector3.right + Vector3.forward) * squareSize;
+            case 2: return squareStartPos + Vector3.forward * squareSize;
+            case 3: return squareStartPos;
+        }
+        return squareStartPos; ;
+    }
+
     public void StartWarningGlow()
     {
-        if (!gameObject.activeInHierarchy || rend ==null)
+        if (!gameObject.activeInHierarchy || rend == null)
         {
             return;
         }
@@ -65,6 +141,9 @@ public class MovingObstacle : MonoBehaviour
         }
         rend.enabled = true;
 
+        squareStartPos = originalStartPos;
+        squareStep = 0;
+        squareDirection = (transform.position.x > 0) ? 1 : -1;
         StopAllCoroutines();
         StartCoroutine(GlowRoutine());
     }

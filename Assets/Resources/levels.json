@@ -6,34 +6,34 @@
         {
           "booster": { "tileX": 4, "tileZ": 4 },
           "obstacles": [
-            { "tileX": 0, "tileZ": 0 },
+            { "tileX": 6, "tileZ": 5 },
             { "tileX": 1, "tileZ": 5 },
             { "tileX": 2, "tileZ": 3 },
             { "tileX": 7, "tileZ": 7 },
             { "tileX": 4, "tileZ": 2 },
-            { "tileX": 5, "tileZ": 1 }
+            { "tileX": 5, "tileZ": 8 }
           ]
         },
         {
           "booster": { "tileX": 6, "tileZ": 5 },
           "obstacles": [
             { "tileX": 1, "tileZ": 2 },
-            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 2, "tileZ": 4 },
             { "tileX": 7, "tileZ": 4 },
-            { "tileX": 4, "tileZ": 5 },
-            { "tileX": 5, "tileZ": 3 },
-            { "tileX": 6, "tileZ": 2 }
+            { "tileX": 4, "tileZ": 7 },
+            { "tileX": 5, "tileZ": 2 },
+            { "tileX": 6, "tileZ": 4 }
           ]
         },
         {
           "booster": { "tileX": 2, "tileZ": 6 },
           "obstacles": [
-            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 6 },
             { "tileX": 6, "tileZ": 7 },
             { "tileX": 5, "tileZ": 3 },
-            { "tileX": 4, "tileZ": 4 },
+            { "tileX": 4, "tileZ": 2 },
             { "tileX": 3, "tileZ": 5 },
-            { "tileX": 2, "tileZ": 9 }
+            { "tileX": 2, "tileZ": 7 }
           ]
         }
       ]
@@ -45,34 +45,34 @@
         {
           "booster": { "tileX": 5, "tileZ": 4 },
           "obstacles": [
-            { "tileX": 0, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
             { "tileX": 1, "tileZ": 7 },
             { "tileX": 2, "tileZ": 3 },
             { "tileX": 3, "tileZ": 1 },
-            { "tileX": 4, "tileZ": 9 },
+            { "tileX": 4, "tileZ": 7 },
             { "tileX": 8, "tileZ": 5 },
             { "tileX": 6, "tileZ": 2 }
           ]
         },
         {
-          "booster": { "tileX": 3, "tileZ": 6 },
+          "booster": { "tileX": 4, "tileZ": 6 },
           "obstacles": [
             { "tileX": 1, "tileZ": 6 },
             { "tileX": 2, "tileZ": 3 },
-            { "tileX": 3, "tileZ": 9 },
+            { "tileX": 3, "tileZ": 6 },
             { "tileX": 4, "tileZ": 2 },
-            { "tileX": 5, "tileZ": 5 },
-            { "tileX": 6, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 3 },
             { "tileX": 7, "tileZ": 1 }
           ]
         },
         {
-          "booster": { "tileX": 7, "tileZ": 5 },
+          "booster": { "tileX": 5, "tileZ": 5 },
           "obstacles": [
             { "tileX": 8, "tileZ": 1 },
-            { "tileX": 9, "tileZ": 2 },
+            { "tileX": 7, "tileZ": 6 },
             { "tileX": 6, "tileZ": 3 },
-            { "tileX": 5, "tileZ": 9 },
+            { "tileX": 5, "tileZ": 2 },
             { "tileX": 4, "tileZ": 5 },
             { "tileX": 3, "tileZ": 6 },
             { "tileX": 2, "tileZ": 2 }
@@ -85,24 +85,24 @@
       "level": 3,
       "layouts": [
         {
-          "booster": { "tileX": 4, "tileZ": 5 },
+          "booster": { "tileX": 3, "tileZ": 7 },
           "obstacles": [
-            { "tileX": 8, "tileZ": 2 },
+            { "tileX": 8, "tileZ": 5 },
             { "tileX": 1, "tileZ": 3 },
             { "tileX": 2, "tileZ": 7 },
             { "tileX": 3, "tileZ": 5 },
-            { "tileX": 4, "tileZ": 9 },
+            { "tileX": 4, "tileZ": 8 },
             { "tileX": 5, "tileZ": 6 },
-            { "tileX": 6, "tileZ": 2 },
-            { "tileX": 7, "tileZ": 1 }
+            { "tileX": 6, "tileZ": 4 },
+            { "tileX": 7, "tileZ": 2 }
           ]
         },
         {
           "booster": { "tileX": 2, "tileZ": 7 },
           "obstacles": [
             { "tileX": 1, "tileZ": 2 },
-            { "tileX": 2, "tileZ": 3 },
-            { "tileX": 3, "tileZ": 4 },
+            { "tileX": 2, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 8 },
             { "tileX": 4, "tileZ": 2 },
             { "tileX": 5, "tileZ": 6 },
             { "tileX": 6, "tileZ": 4 },
@@ -114,13 +114,13 @@
           "booster": { "tileX": 6, "tileZ": 6 },
           "obstacles": [
             { "tileX": 8, "tileZ": 2 },
-            { "tileX": 7, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 5 },
             { "tileX": 6, "tileZ": 4 },
             { "tileX": 5, "tileZ": 5 },
             { "tileX": 4, "tileZ": 6 },
-            { "tileX": 3, "tileZ": 3 },
-            { "tileX": 2, "tileZ": 3 },
-            { "tileX": 1, "tileZ": 8 }
+            { "tileX": 3, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 6 },
+            { "tileX": 1, "tileZ": 4 }
           ]
         }
       ]
@@ -129,7 +129,7 @@
   "level": 4,
   "layouts": [
     {
-      "booster": { "tileX": 4, "tileZ": 4 },
+      "booster": { "tileX": 3, "tileZ": 5 },
       "obstacles": [
         { "tileX": 0, "tileZ": 1 },
         { "tileX": 1, "tileZ": 5 },
@@ -137,8 +137,8 @@
         { "tileX": 3, "tileZ": 4 },
         { "tileX": 4, "tileZ": 7 },
         { "tileX": 5, "tileZ": 2 },
-        { "tileX": 6, "tileZ": 9 },
-        { "tileX": 7, "tileZ": 8 },
+        { "tileX": 6, "tileZ": 6 },
+        { "tileX": 7, "tileZ": 5 },
         { "tileX": 8, "tileZ": 3 }
       ]
     },
@@ -149,21 +149,21 @@
         { "tileX": 2, "tileZ": 7 },
         { "tileX": 3, "tileZ": 3 },
         { "tileX": 4, "tileZ": 8 },
-        { "tileX": 5, "tileZ": 7 },
-        { "tileX": 6, "tileZ": 2 },
+        { "tileX": 5, "tileZ": 5 },
+        { "tileX": 6, "tileZ": 4 },
         { "tileX": 7, "tileZ": 3 },
-        { "tileX": 8, "tileZ": 9 },
-        { "tileX": 9, "tileZ": 3 }
+        { "tileX": 8, "tileZ": 7 },
+        { "tileX": 9, "tileZ": 2 }
       ]
     },
     {
-      "booster": { "tileX": 2, "tileZ": 6 },
+      "booster": { "tileX": 4, "tileZ": 6 },
       "obstacles": [
         { "tileX": 8, "tileZ": 1 },
         { "tileX": 7, "tileZ": 5 },
-        { "tileX": 6, "tileZ": 9 },
+        { "tileX": 6, "tileZ": 7 },
         { "tileX": 5, "tileZ": 2 },
-        { "tileX": 4, "tileZ": 5 },
+        { "tileX": 4, "tileZ": 4 },
         { "tileX": 3, "tileZ": 6 },
         { "tileX": 2, "tileZ": 8 },
         { "tileX": 1, "tileZ": 2 },
@@ -185,16 +185,16 @@
         { "tileX": 4, "tileZ": 8 },
         { "tileX": 5, "tileZ": 1 },
         { "tileX": 6, "tileZ": 9 },
-        { "tileX": 7, "tileZ": 3 },
+        { "tileX": 7, "tileZ": 5 },
         { "tileX": 8, "tileZ": 2 },
-        { "tileX": 1, "tileZ": 7 }
+        { "tileX": 0, "tileZ": 4 }
       ]
     },
     {
       "booster": { "tileX": 3, "tileZ": 6 },
       "obstacles": [
-        { "tileX": 2, "tileZ": 1 },
-        { "tileX": 3, "tileZ": 7 },
+        { "tileX": 0, "tileZ": 5 },
+        { "tileX": 3, "tileZ": 5 },
         { "tileX": 4, "tileZ": 3 },
         { "tileX": 5, "tileZ": 4 },
         { "tileX": 6, "tileZ": 9 },
@@ -202,7 +202,7 @@
         { "tileX": 8, "tileZ": 3 },
         { "tileX": 1, "tileZ": 2 },
         { "tileX": 9, "tileZ": 4 },
-        { "tileX": 2, "tileZ": 6 }
+        { "tileX": 2, "tileZ": 4 }
       ]
     },
     {
@@ -210,14 +210,14 @@
       "obstacles": [
         { "tileX": 8, "tileZ": 2 },
         { "tileX": 7, "tileZ": 3 },
-        { "tileX": 6, "tileZ": 8 },
-        { "tileX": 5, "tileZ": 1 },
+        { "tileX": 6, "tileZ": 7 },
+        { "tileX": 5, "tileZ": 5 },
         { "tileX": 4, "tileZ": 2 },
-        { "tileX": 3, "tileZ": 9 },
+        { "tileX": 3, "tileZ": 7 },
         { "tileX": 2, "tileZ": 4 },
-        { "tileX": 1, "tileZ": 3 },
-        { "tileX": 0, "tileZ": 2 },
-        { "tileX": 9, "tileZ": 7 }
+        { "tileX": 1, "tileZ": 2 },
+        { "tileX": 0, "tileZ": 7 },
+        { "tileX": 9, "tileZ": 6 }
       ]
     }
   ]
@@ -226,18 +226,18 @@
   "level": 6,
   "layouts": [
     {
-      "booster": { "tileX": 4, "tileZ": 5 },
+      "booster": { "tileX": 4, "tileZ": 7 },
       "obstacles": [
-        { "tileX": 0, "tileZ": 8 },
+        { "tileX": 0, "tileZ": 5 },
         { "tileX": 1, "tileZ": 2 },
-        { "tileX": 2, "tileZ": 3 },
+        { "tileX": 8, "tileZ": 3 },
         { "tileX": 3, "tileZ": 7 },
         { "tileX": 4, "tileZ": 6 },
         { "tileX": 5, "tileZ": 4 },
         { "tileX": 6, "tileZ": 9 },
-        { "tileX": 7, "tileZ": 2 },
-        { "tileX": 8, "tileZ": 1 },
-        { "tileX": 1, "tileZ": 5 },
+        { "tileX": 7, "tileZ": 5 },
+        { "tileX": 6, "tileZ": 6 },
+        { "tileX": 1, "tileZ": 3 },
         { "tileX": 2, "tileZ": 6 }
       ]
     },
@@ -245,10 +245,10 @@
       "booster": { "tileX": 6, "tileZ": 6 },
       "obstacles": [
         { "tileX": 2, "tileZ": 4 },
-        { "tileX": 3, "tileZ": 3 },
-        { "tileX": 4, "tileZ": 9 },
+        { "tileX": 4, "tileZ": 3 },
+        { "tileX": 0, "tileZ": 5 },
         { "tileX": 5, "tileZ": 5 },
-        { "tileX": 6, "tileZ": 1 },
+        { "tileX": 6, "tileZ": 3 },
         { "tileX": 7, "tileZ": 5 },
         { "tileX": 8, "tileZ": 4 },
         { "tileX": 1, "tileZ": 2 },
@@ -262,14 +262,14 @@
       "obstacles": [
         { "tileX": 8, "tileZ": 3 },
         { "tileX": 7, "tileZ": 4 },
-        { "tileX": 6, "tileZ": 2 },
+        { "tileX": 6, "tileZ": 3 },
         { "tileX": 5, "tileZ": 6 },
         { "tileX": 4, "tileZ": 7 },
-        { "tileX": 3, "tileZ": 1 },
+        { "tileX": 3, "tileZ": 3 },
         { "tileX": 2, "tileZ": 5 },
         { "tileX": 1, "tileZ": 4 },
         { "tileX": 0, "tileZ": 3 },
-        { "tileX": 2, "tileZ": 2 },
+        { "tileX": 9, "tileZ": 7 },
         { "tileX": 4, "tileZ": 1 }
       ]
     }
@@ -281,7 +281,7 @@
     {
       "booster": { "tileX": 5, "tileZ": 6 },
       "obstacles": [
-        { "tileX": 0, "tileZ": 1 },
+        { "tileX": 0, "tileZ": 4 },
         { "tileX": 1, "tileZ": 6 },
         { "tileX": 2, "tileZ": 3 },
         { "tileX": 3, "tileZ": 8 },
@@ -289,7 +289,7 @@
         { "tileX": 6, "tileZ": 5 },
         { "tileX": 7, "tileZ": 4 },
         { "tileX": 8, "tileZ": 3 },
-        { "tileX": 2, "tileZ": 6 },
+        { "tileX": 9, "tileZ": 6 },
         { "tileX": 3, "tileZ": 1 },
         { "tileX": 6, "tileZ": 2 },
         { "tileX": 5, "tileZ": 3 }
@@ -298,14 +298,14 @@
     {
       "booster": { "tileX": 2, "tileZ": 7 },
       "obstacles": [
-        { "tileX": 1, "tileZ": 1 },
+        { "tileX": 9, "tileZ": 2 },
         { "tileX": 2, "tileZ": 5 },
         { "tileX": 3, "tileZ": 2 },
         { "tileX": 4, "tileZ": 4 },
         { "tileX": 5, "tileZ": 5 },
         { "tileX": 6, "tileZ": 4 },
         { "tileX": 7, "tileZ": 3 },
-        { "tileX": 8, "tileZ": 9 },
+        { "tileX": 8, "tileZ": 7 },
         { "tileX": 0, "tileZ": 4 },
         { "tileX": 1, "tileZ": 6 },
         { "tileX": 3, "tileZ": 6 },
@@ -319,14 +319,14 @@
         { "tileX": 7, "tileZ": 2 },
         { "tileX": 6, "tileZ": 9 },
         { "tileX": 5, "tileZ": 1 },
-        { "tileX": 4, "tileZ": 5 },
+        { "tileX": 4, "tileZ": 7 },
         { "tileX": 3, "tileZ": 3 },
         { "tileX": 2, "tileZ": 5 },
         { "tileX": 1, "tileZ": 4 },
-        { "tileX": 0, "tileZ": 8 },
-        { "tileX": 6, "tileZ": 6 },
+        { "tileX": 0, "tileZ": 7 },
+        { "tileX": 6, "tileZ": 5 },
         { "tileX": 4, "tileZ": 2 },
-        { "tileX": 2, "tileZ": 3 }
+        { "tileX": 9, "tileZ": 3 }
       ]
     }
   ]
@@ -338,7 +338,7 @@
       "booster": { "tileX": 4, "tileZ": 6 },
       "obstacles": [
         { "tileX": 0, "tileZ": 1 },
-        { "tileX": 1, "tileZ": 6 },
+        { "tileX": 9, "tileZ": 5 },
         { "tileX": 2, "tileZ": 3 },
         { "tileX": 3, "tileZ": 7 },
         { "tileX": 5, "tileZ": 4 },
@@ -346,7 +346,7 @@
         { "tileX": 7, "tileZ": 2 },
         { "tileX": 8, "tileZ": 1 },
         { "tileX": 1, "tileZ": 5 },
-        { "tileX": 2, "tileZ": 6 },
+        { "tileX": 6, "tileZ": 1 },
         { "tileX": 3, "tileZ": 1 },
         { "tileX": 4, "tileZ": 3 },
         { "tileX": 7, "tileZ": 4 }
@@ -357,7 +357,7 @@
       "obstacles": [
         { "tileX": 1, "tileZ": 1 },
         { "tileX": 2, "tileZ": 2 },
-        { "tileX": 3, "tileZ": 7 },
+        { "tileX": 3, "tileZ": 5 },
         { "tileX": 4, "tileZ": 4 },
         { "tileX": 5, "tileZ": 1 },
         { "tileX": 6, "tileZ": 4 },
@@ -366,7 +366,7 @@
         { "tileX": 9, "tileZ": 4 },
         { "tileX": 1, "tileZ": 6 },
         { "tileX": 2, "tileZ": 7 },
-        { "tileX": 4, "tileZ": 2 },
+        { "tileX": 8, "tileZ": 2 },
         { "tileX": 5, "tileZ": 8 }
       ]
     },
@@ -382,10 +382,10 @@
         { "tileX": 2, "tileZ": 4 },
         { "tileX": 1, "tileZ": 3 },
         { "tileX": 0, "tileZ": 2 },
-        { "tileX": 6, "tileZ": 1 },
-        { "tileX": 5, "tileZ": 2 },
+        { "tileX": 7, "tileZ": 2 },
+        { "tileX": 5, "tileZ": 9 },
         { "tileX": 4, "tileZ": 1 },
-        { "tileX": 1, "tileZ": 7 }
+        { "tileX": 9, "tileZ": 7 }
       ]
     }
   ]
@@ -401,28 +401,28 @@
         { "tileX": 2, "tileZ": 6 },
         { "tileX": 3, "tileZ": 4 },
         { "tileX": 4, "tileZ": 8 },
-        { "tileX": 6, "tileZ": 5 },
+        { "tileX": 6, "tileZ": 2 },
         { "tileX": 7, "tileZ": 5 },
         { "tileX": 8, "tileZ": 3 },
-        { "tileX": 9, "tileZ": 9 },
+        { "tileX": 9, "tileZ": 7 },
         { "tileX": 1, "tileZ": 5 },
-        { "tileX": 2, "tileZ": 2 },
+        { "tileX": 4, "tileZ": 2 },
         { "tileX": 3, "tileZ": 9 },
         { "tileX": 6, "tileZ": 9 },
         { "tileX": 5, "tileZ": 3 }
       ]
     },
     {
-      "booster": { "tileX": 3, "tileZ": 7 },
+      "booster": { "tileX": 4, "tileZ": 7 },
       "obstacles": [
         { "tileX": 1, "tileZ": 1 },
-        { "tileX": 2, "tileZ": 2 },
+        { "tileX": 2, "tileZ": 3 },
         { "tileX": 3, "tileZ": 9 },
-        { "tileX": 4, "tileZ": 4 },
+        { "tileX": 3, "tileZ": 4 },
         { "tileX": 5, "tileZ": 5 },
         { "tileX": 6, "tileZ": 6 },
-        { "tileX": 7, "tileZ": 5 },
-        { "tileX": 8, "tileZ": 8 },
+        { "tileX": 7, "tileZ": 4 },
+        { "tileX": 8, "tileZ": 6 },
         { "tileX": 9, "tileZ": 3 },
         { "tileX": 0, "tileZ": 4 },
         { "tileX": 1, "tileZ": 6 },
@@ -434,7 +434,7 @@
     {
       "booster": { "tileX": 7, "tileZ": 6 },
       "obstacles": [
-        { "tileX": 9, "tileZ": 9 },
+        { "tileX": 9, "tileZ": 5 },
         { "tileX": 8, "tileZ": 3 },
         { "tileX": 7, "tileZ": 4 },
         { "tileX": 6, "tileZ": 2 },
@@ -463,13 +463,13 @@
         { "tileX": 2, "tileZ": 4 },
         { "tileX": 3, "tileZ": 6 },
         { "tileX": 5, "tileZ": 4 },
-        { "tileX": 6, "tileZ": 9 },
+        { "tileX": 6, "tileZ": 6 },
         { "tileX": 7, "tileZ": 8 },
         { "tileX": 8, "tileZ": 1 },
         { "tileX": 9, "tileZ": 0 },
         { "tileX": 1, "tileZ": 8 },
         { "tileX": 2, "tileZ": 7 },
-        { "tileX": 3, "tileZ": 7 },
+        { "tileX": 4, "tileZ": 5 },
         { "tileX": 6, "tileZ": 2 },
         { "tileX": 7, "tileZ": 4 },
         { "tileX": 8, "tileZ": 3 }
@@ -490,7 +490,7 @@
         { "tileX": 1, "tileZ": 6 },
         { "tileX": 2, "tileZ": 7 },
         { "tileX": 3, "tileZ": 6 },
-        { "tileX": 4, "tileZ": 2 },
+        { "tileX": 6, "tileZ": 7 },
         { "tileX": 6, "tileZ": 2 },
         { "tileX": 8, "tileZ": 1 }
       ]
@@ -503,7 +503,7 @@
         { "tileX": 7, "tileZ": 4 },
         { "tileX": 6, "tileZ": 5 },
         { "tileX": 5, "tileZ": 6 },
-        { "tileX": 4, "tileZ": 7 },
+        { "tileX": 4, "tileZ": 8 },
         { "tileX": 3, "tileZ": 6 },
         { "tileX": 2, "tileZ": 5 },
         { "tileX": 1, "tileZ": 4 },
@@ -511,7 +511,7 @@
         { "tileX": 6, "tileZ": 3 },
         { "tileX": 5, "tileZ": 4 },
         { "tileX": 4, "tileZ": 1 },
-        { "tileX": 3, "tileZ": 2 },
+        { "tileX": 3, "tileZ": 3 },
         { "tileX": 2, "tileZ": 1 }
       ]
     }
@@ -4349,7 +4349,581 @@
       ]
     }
   ]
-}
-
+},
+{
+   "level": 41,
+   "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 2, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 7 },
+            { "tileX": 4, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 6, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 5 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 7 },
+            { "tileX": 4, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 3, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 6 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 7 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 42,
+      "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 2, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 3 },
+            { "tileX": 4, "tileZ": 7 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 5 },
+            { "tileX": 7, "tileZ": 7 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 2 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 5 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 4 },
+            { "tileX": 2, "tileZ": 2 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 4 },
+            { "tileX": 8, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 6 }
+          ]
+        },
+        {
+          "booster": { "tileX": 3, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 7 },
+            { "tileX": 2, "tileZ": 4 },
+            { "tileX": 3, "tileZ": 2 },
+            { "tileX": 4, "tileZ": 6 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 5 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 7, "tileZ": 7 },
+            { "tileX": 1, "tileZ": 3 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 43,
+      "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 4 },
+            { "tileX": 2, "tileZ": 2 },
+            { "tileX": 3, "tileZ": 5 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 6, "tileZ": 7 },
+            { "tileX": 2, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 5 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 4 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 5, "tileZ": 3 },
+            { "tileX": 6, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 4 },
+            { "tileX": 8, "tileZ": 6 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 3, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 3, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 7 },
+            { "tileX": 2, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 4 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 4 },
+            { "tileX": 8, "tileZ": 6 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 1, "tileZ": 3 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 44,
+      "layouts": [
+        {
+          "booster": { "tileX": 5, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 2, "tileZ": 4 },
+            { "tileX": 3, "tileZ": 2 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 4 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 8, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 7 },
+            { "tileX": 5, "tileZ": 8 },
+            { "tileX": 7, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 3 },
+            { "tileX": 2, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 4 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 2, "tileZ": 6 },
+            { "tileX": 4, "tileZ": 7 },
+            { "tileX": 7, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 4, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 5 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 7 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 45,
+      "layouts": [
+        {
+          "booster": { "tileX": 3, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 5 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 2 },
+            { "tileX": 6, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 8, "tileZ": 2 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 8 },
+            { "tileX": 2, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 4, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 2 },
+            { "tileX": 4, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 3 },
+            { "tileX": 6, "tileZ": 5 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 3, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 3, "tileZ": 5 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 4, "tileZ": 7 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 1, "tileZ": 5 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 46,
+      "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 4 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 6, "tileZ": 2 },
+            { "tileX": 7, "tileZ": 4 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 7 },
+            { "tileX": 5, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 8 },
+            { "tileX": 7, "tileZ": 6 },
+            { "tileX": 1, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 5, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 3 },
+            { "tileX": 2, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 4 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 3 },
+            { "tileX": 6, "tileZ": 5 },
+            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 8 },
+            { "tileX": 4, "tileZ": 6 },
+            { "tileX": 1, "tileZ": 6 },
+            { "tileX": 2, "tileZ": 7 },
+            { "tileX": 8, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 3 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 4, "tileZ": 7 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 8, "tileZ": 8 },
+            { "tileX": 1, "tileZ": 8 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 47,
+      "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 2, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 3 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 4 },
+            { "tileX": 6, "tileZ": 2 },
+            { "tileX": 7, "tileZ": 6 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 5, "tileZ": 6 },
+            { "tileX": 8, "tileZ": 8 },
+            { "tileX": 4, "tileZ": 8 },
+            { "tileX": 7, "tileZ": 4 },
+            { "tileX": 1, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 5, "tileZ": 6 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 5 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 6, "tileZ": 7 },
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 7 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 3 },
+            { "tileX": 2, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 4 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 2, "tileZ": 6 },
+            { "tileX": 4, "tileZ": 7 },
+            { "tileX": 7, "tileZ": 6 },
+            { "tileX": 8, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 8 },
+            { "tileX": 1, "tileZ": 8 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 48,
+      "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 8 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 1, "tileZ": 6 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 2, "tileZ": 4 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 7 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 4 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 7, "tileZ": 6 },
+            { "tileX": 8, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 5, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 5 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 6, "tileZ": 7 },
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 3 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 3 },
+            { "tileX": 2, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 3 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 5, "tileZ": 3 },
+            { "tileX": 6, "tileZ": 5 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 3, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 6 },
+            { "tileX": 2, "tileZ": 1 },
+            { "tileX": 1, "tileZ": 7 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 49,
+      "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 8 },
+          "obstacles": [
+            { "tileX": 2, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 1 },
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 8, "tileZ": 2 },
+            { "tileX": 3, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 4 },
+            { "tileX": 7, "tileZ": 8 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 6, "tileZ": 5 },
+            { "tileX": 1, "tileZ": 6 },
+            { "tileX": 8, "tileZ": 6 },
+            { "tileX": 3, "tileZ": 7 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 2, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 5, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 5 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 6, "tileZ": 7 },
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 4, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 1, "tileZ": 6 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 2, "tileZ": 4 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 7 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 4 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 7, "tileZ": 6 },
+            { "tileX": 8, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 1 }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 50,
+      "layouts": [
+        {
+          "booster": { "tileX": 4, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 5 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 8, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 6 },
+            { "tileX": 6, "tileZ": 7 },
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 8, "tileZ": 3 },
+            { "tileX": 4, "tileZ": 8 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 5, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 7, "tileZ": 1 },
+            { "tileX": 2, "tileZ": 3 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 6, "tileZ": 3 },
+            { "tileX": 8, "tileZ": 3 },
+            { "tileX": 1, "tileZ": 5 },
+            { "tileX": 3, "tileZ": 5 },
+            { "tileX": 5, "tileZ": 5 },
+            { "tileX": 7, "tileZ": 5 },
+            { "tileX": 2, "tileZ": 7 },
+            { "tileX": 4, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 7 },
+            { "tileX": 8, "tileZ": 7 },
+            { "tileX": 1, "tileZ": 8 }
+          ]
+        },
+        {
+          "booster": { "tileX": 6, "tileZ": 7 },
+          "obstacles": [
+            { "tileX": 1, "tileZ": 2 },
+            { "tileX": 1, "tileZ": 6 },
+            { "tileX": 2, "tileZ": 8 },
+            { "tileX": 2, "tileZ": 4 },
+            { "tileX": 3, "tileZ": 1 },
+            { "tileX": 3, "tileZ": 7 },
+            { "tileX": 4, "tileZ": 5 },
+            { "tileX": 4, "tileZ": 3 },
+            { "tileX": 5, "tileZ": 1 },
+            { "tileX": 5, "tileZ": 7 },
+            { "tileX": 6, "tileZ": 4 },
+            { "tileX": 8, "tileZ": 4 },
+            { "tileX": 7, "tileZ": 2 },
+            { "tileX": 7, "tileZ": 6 },
+            { "tileX": 8, "tileZ": 8 },
+            { "tileX": 6, "tileZ": 8 },
+            { "tileX": 8, "tileZ": 1 }
+          ]
+        }
+      ]
+    }
   ]
 }

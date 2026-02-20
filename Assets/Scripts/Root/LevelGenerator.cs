@@ -62,7 +62,16 @@ public class LevelGenerator : MonoBehaviour
                 obstacleYOffset
             );
 
-            Instantiate(obstaclePrefab, pos, Quaternion.identity, obstaclesParent);
+           GameObject obstacleObj = Instantiate(obstaclePrefab, pos, Quaternion.identity, obstaclesParent);
+
+            MovingObstacle mo = obstacleObj.GetComponent<MovingObstacle>();
+
+            if (mo != null)
+            {
+                mo.tileX = ob.tileX;
+                mo.tileZ = ob.tileZ;
+                mo.InitializeFromGrid();
+            }
         }
 
         // Spawn Booster
