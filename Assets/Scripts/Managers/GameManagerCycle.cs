@@ -17,9 +17,6 @@ public class GameManagerCycle : MonoBehaviour
     public GameObject levelCompletePanel;
     public GameObject worldPanel;
 
-    //[Header("World Level Panels")]
-    //public List<GameObject> worldLevelPanels;
-
     [Header("Gameplay References")]
     public SnapshotManager snapshot;
     public LevelGenerator generator;
@@ -37,11 +34,10 @@ public class GameManagerCycle : MonoBehaviour
     public TextMeshProUGUI lastLevelText;
     public TextMeshProUGUI bestLevelGameOverText;
 
-    [Header("Star System")]
     [Header("Star UI")]
-    public UnityEngine.UI.Image star1;
-    public UnityEngine.UI.Image star2;
-    public UnityEngine.UI.Image star3;
+    public Image star1;
+    public Image star2;
+    public Image star3;
 
     public Sprite filledStar;
     public Sprite emptyStar;
@@ -73,22 +69,28 @@ public class GameManagerCycle : MonoBehaviour
     private bool snapshotActive;
     private bool isGameRunning;
 
-
     [Header("HUD")]
     public HUDVisibilityController hud;
+
     [Header("UI Background")]
     public GameObject backgroundPanel;
+
     [Header("New Dynamic Level Panel")]
     public GameObject levelPanel;
 
     private HashSet<MovingObstacle> movingObstaclesForLayout = new HashSet<MovingObstacle>();
 
-    private int reviveCount = 0;
     [Header("No Battery Panel")]
     public GameObject noBatteryPanel;
 
-    private GameObject previousPanelBeforeNoBattery;
+    [Header("New World Unlock Panel")]
+    public GameObject newWorldPanel;
+    public TextMeshProUGUI newWorldNameText;
 
+    private GameObject previousPanelBeforeNoBattery;
+    private WorldData pendingUnlockedWorld;
+    [Header("Daily Reward")]
+    public GameObject dailyRewardPanel;
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -110,7 +112,6 @@ public class GameManagerCycle : MonoBehaviour
         LoadHighestLevel();
         ShowMenu();
         totalStars = PlayerPrefs.GetInt("TotalStar", 0);
-        UpdateTotalStarsUI();
     }
 
     void Update()
@@ -143,6 +144,9 @@ public class GameManagerCycle : MonoBehaviour
         if (noBatteryPanel != null)
             noBatteryPanel.SetActive(false);
 
+        if (newWorldPanel != null)
+            newWorldPanel.SetActive(false);
+
         backgroundPanel.SetActive(true);
     }
     public void UpdateHUD(HUDVisibilityController.UIState state)
@@ -172,8 +176,16 @@ public class GameManagerCycle : MonoBehaviour
 
         isGameRunning = false;
         player.canMove = false;
+        // DAILY REWARD (Menu Only)
+        if (DailyRewardManager.Instance != null &&
+            DailyRewardManager.Instance.CanShowDailyReward())
+        {
+            DisableAllPanels();
+            dailyRewardPanel.SetActive(true);
+            UpdateHUD(HUDVisibilityController.UIState.Menu);
+            return;
+        }
     }
-
 
     public void OnStartGameClicked()
     {
@@ -188,14 +200,12 @@ public class GameManagerCycle : MonoBehaviour
         UpdateHUD(HUDVisibilityController.UIState.World);
         isGameRunning = false;
         player.canMove = false;
-        
-        //UpdateWorldVisuals();
+
     }
 
     public void OpenWorldLevels(int worldIndex)
     {
         DisableAllPanels();
-        //worldLevelPanels[worldIndex].SetActive(true);
         levelPanel.SetActive(true);
         UpdateHUD(HUDVisibilityController.UIState.Level);
     }
@@ -205,6 +215,7 @@ public class GameManagerCycle : MonoBehaviour
         DisableAllPanels();
         worldPanel.SetActive(true);
     }
+
     public void OnLevelSelected(int levelNumber)
     {
         levelIndex = levelNumber;
@@ -238,11 +249,9 @@ public class GameManagerCycle : MonoBehaviour
         LoadLevel();
     }
 
-
     void LoadLevel()
     {
         GameEconomyManager.Instance.ResetLevelCoins();
-        reviveCount = 0;
 
         levelTimer = 60f;
         mapTimer = 20f;
@@ -339,7 +348,7 @@ public class GameManagerCycle : MonoBehaviour
                 mo.StartWarningGlow();
         }
     }
-    
+  
     void StopAllObstacleMovement()
     {
         foreach (Transform ob in generator.obstaclesParent)
@@ -477,8 +486,6 @@ public class GameManagerCycle : MonoBehaviour
             PlayerPrefs.SetInt(levelKey, earnedStars);
             PlayerPrefs.SetInt("TotalStar", totalStars);
             PlayerPrefs.Save();
-
-            UpdateTotalStarsUI();
         }
     }
 
@@ -488,14 +495,6 @@ public class GameManagerCycle : MonoBehaviour
         star2.sprite = (starCount >= 2) ? filledStar : emptyStar;
         star3.sprite = (starCount >= 3) ? filledStar : emptyStar;
     }
-
-
-    void UpdateTotalStarsUI()
-    {
-        //if (totalStarsText != null)
-        //    totalStarsText.text = "TOTAL STARS : " + totalStars;
-    }
-
 
     public void PlayerReachedDoor()
     {
@@ -524,15 +523,39 @@ public class GameManagerCycle : MonoBehaviour
         DisableAllPanels();
         levelCompletePanel.SetActive(true);
         UpdateHUD(HUDVisibilityController.UIState.LevelComplete);
-
+        CheckForNewWorldUnlock();
         int earnedCoins = GameEconomyManager.Instance.GetLevelCoins();
         coinsEarnedText.text = "COINS EARNED :    " + earnedCoins;
 
         Debug.Log("Coins Earned: " + earnedCoins);
     }
-
     public void OnNextLevelButton()
     {
+        int levelsPerWorld = 10;
+
+        // ✅ Check if this was the last level of the current world
+        bool isLastLevelOfWorld = (levelIndex % levelsPerWorld == 0);
+
+        if (isLastLevelOfWorld)
+        {
+            int currentWorld = PlayerPrefs.GetInt("SelectedWorld", 1);
+            int nextWorld = currentWorld + 1;
+
+            // If next world exists
+            if (nextWorld <= WorldDatabase.Instance.GetWorlds().Count)
+            {
+                PlayerPrefs.SetInt("SelectedWorld", nextWorld);
+                PlayerPrefs.Save();
+
+                DisableAllPanels();
+                levelPanel.SetActive(true);
+                UpdateHUD(HUDVisibilityController.UIState.Level);
+
+                return; // 🔥 STOP here
+            }
+        }
+
+        // 🔁 Normal next-level flow
         levelIndex++;
 
         JsonLevel level = JsonLevelLoader.Instance.GetLevel(levelIndex);
@@ -580,7 +603,6 @@ public class GameManagerCycle : MonoBehaviour
 
         ShowGameOver();
     }
-
 
     void ShowNoBatteryPanel()
     {
@@ -652,6 +674,7 @@ public class GameManagerCycle : MonoBehaviour
         isGameRunning = false;
         player.canMove = false;
     }
+
     public void Retry()
     {
         // 🔋 Retry ALWAYS costs battery
@@ -716,7 +739,6 @@ public class GameManagerCycle : MonoBehaviour
         snapshotActive = true;
         UpdatePlayerMovement();
     }
-
 
     void UpdateSnapshotTimer()
     {
@@ -843,7 +865,28 @@ public class GameManagerCycle : MonoBehaviour
         // ✅ FIX: restore correct HUD (prevents coin/battery UI)
         UpdateHUD(HUDVisibilityController.UIState.Gameplay);
     }
+    public void OnNewWorldYesClicked()
+    {
+        if (pendingUnlockedWorld == null)
+        {
+            Debug.LogWarning("No pending world to open.");
+            return;
+        }
 
+        PlayerPrefs.SetInt("SelectedWorld", pendingUnlockedWorld.worldId);
+        PlayerPrefs.Save();
+
+        OpenWorldLevels(pendingUnlockedWorld.worldId);
+
+        pendingUnlockedWorld = null;
+    }
+    public void OnNewWorldNoClicked()
+    {
+        pendingUnlockedWorld = null;
+
+        // Continue normal flow → next level
+        OnNextLevelButton();
+    }
     public int CurrentLevelNumber
     {
         get { return levelIndex; }
@@ -855,10 +898,12 @@ public class GameManagerCycle : MonoBehaviour
         levelPanel.SetActive(true);
         UpdateHUD(HUDVisibilityController.UIState.Level);
     }
+
     void ClearLevelFailed(int level)
     {
         PlayerPrefs.DeleteKey($"LevelFailed_{level}");
     }
+
 
     bool HasLevelBeenPlayed(int level)
     {
@@ -871,5 +916,70 @@ public class GameManagerCycle : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    bool IsWorldUnlocked(int worldId)
+    {
+        return PlayerPrefs.GetInt($"WorldUnlocked_{worldId}", 0) == 1;
+    }
 
+    void UnlockWorld(int worldId)
+    {
+        PlayerPrefs.SetInt($"WorldUnlocked_{worldId}", 1);
+        PlayerPrefs.Save();
+    }
+
+    bool IsWorldUnlockPopupShown(int worldId)
+    {
+        return PlayerPrefs.GetInt($"WorldUnlockPopupShown_{worldId}", 0) == 1;
+    }
+
+    void MarkWorldUnlockPopupShown(int worldId)
+    {
+        PlayerPrefs.SetInt($"WorldUnlockPopupShown_{worldId}", 1);
+        PlayerPrefs.Save();
+    }
+
+    void ShowNewWorldUnlockedPanel(WorldData world)
+    {
+        DisableAllPanels();
+
+        newWorldPanel.SetActive(true);
+
+        // Store for button actions
+        pendingUnlockedWorld = world;
+
+        // Update UI text
+        newWorldNameText.text = world.worldName;
+    }
+
+    void CheckForNewWorldUnlock()
+    {
+        int totalStars = PlayerPrefs.GetInt("TotalStar", 0);
+
+        foreach (WorldData world in WorldDatabase.Instance.GetWorlds())
+        {
+            // 🔒 World 1 is always unlocked by default → never show popup
+            if (world.worldId == 1)
+                continue;
+
+            // Skip if already unlocked
+            if (IsWorldUnlocked(world.worldId))
+                continue;
+
+            // Requirement not met yet
+            if (totalStars < world.starsRequired)
+                continue;
+
+            // Unlock the world
+            UnlockWorld(world.worldId);
+
+            // Show popup ONLY ONCE
+            if (!IsWorldUnlockPopupShown(world.worldId))
+            {
+                MarkWorldUnlockPopupShown(world.worldId);
+                ShowNewWorldUnlockedPanel(world);
+            }
+
+            break; // unlock ONLY one world at a time
+        }
+    }
 }
